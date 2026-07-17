@@ -1,0 +1,14 @@
+# Estagio artesanal e visualizacao (rodam sem chave de API)
+sentence-transformers>=3.0
+numpy>=1.26
+scikit-learn>=1.4
+matplotlib>=3.8
+
+# Estagio com framework (LangChain + Chroma + Gemini)
+langchain>=1.0
+langchain-community>=0.3
+langchain-google-genai>=4.0
+langchain-chroma>=0.2
+chromadb>=0.5
+google-genai>=1.0
+python-dotenv>=1.0
