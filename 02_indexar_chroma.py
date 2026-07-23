@@ -52,7 +52,6 @@ def main():
         persist_directory=PASTA_DB,
     )
     print(f"Indice Chroma persistido em: {PASTA_DB}")
-    print("Pronto. Agora rode: python 03_rag_langchain.py")
 
 
 if __name__ == "__main__":

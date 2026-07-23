@@ -45,7 +45,7 @@ def main():
         persist_directory=PASTA_DB,
     )
     retriever = vs.as_retriever(search_kwargs={"k": 3})
-    llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0)
+    llm = ChatGoogleGenerativeAI(model="gemini-3.5-flash-lite")
 
     perguntas = [
         "Qual o prazo de entrega do Mini-Projeto 3?",
@@ -65,7 +65,10 @@ def main():
 
         mensagem = PROMPT.format(contexto=formatar(docs), pergunta=pergunta)
         resposta = llm.invoke(mensagem)
-        print("\nRESPOSTA:", resposta.content.strip(), "\n")
+        texto = resposta.content if isinstance(resposta.content, str) else "".join(
+            b.get("text", "") if isinstance(b, dict) else str(b) for b in resposta.content
+        )
+        print("\nRESPOSTA:", texto.strip(), "\n")
 
 
 if __name__ == "__main__":

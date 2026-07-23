@@ -6,8 +6,7 @@ Faz a MESMA pergunta ao Gemini de dois jeitos:
   (B) COM RAG: pergunta aumentada com os chunks recuperados do corpus.
 
 O bloco final contem perguntas que o RAG vetorial simples ERRA de proposito
-(multi-hop, agregacao, visao global do corpus). Elas motivam a proxima aula,
-sobre GraphRAG. Rode 02_indexar_chroma.py antes.
+(multi-hop, agregacao, visao global do corpus)..
 """
 
 import os
@@ -19,8 +18,14 @@ load_dotenv()
 PASTA_DB = os.path.join(os.path.dirname(__file__), "chroma_db")
 
 
+def _extrair_texto(content):
+    if isinstance(content, str):
+        return content.strip()
+    return "".join(b.get("text", "") if isinstance(b, dict) else str(b) for b in content).strip()
+
+
 def responder_sem_rag(llm, pergunta):
-    return llm.invoke(pergunta).content.strip()
+    return _extrair_texto(llm.invoke(pergunta).content)
 
 
 def responder_com_rag(llm, retriever, pergunta):
@@ -31,7 +36,7 @@ def responder_com_rag(llm, retriever, pergunta):
         f"CONTEXTO:\n{contexto}\n\nPERGUNTA: {pergunta}\n\nRESPOSTA:"
     )
     fontes = {os.path.basename(d.metadata.get("source", "?")) for d in docs}
-    return llm.invoke(prompt).content.strip(), fontes
+    return _extrair_texto(llm.invoke(prompt).content), fontes
 
 
 def main():
@@ -42,7 +47,7 @@ def main():
     vs = Chroma(collection_name="sbc_notas", embedding_function=embeddings,
                 persist_directory=PASTA_DB)
     retriever = vs.as_retriever(search_kwargs={"k": 4})
-    llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0)
+    llm = ChatGoogleGenerativeAI(model="gemini-3.5-flash-lite")
 
     # Perguntas que o RAG resolve bem: factuais e localizadas.
     faceis = [

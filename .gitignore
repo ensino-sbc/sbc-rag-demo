@@ -1,1 +1,12 @@
 .env
+
+# Banco vetorial Chroma (gerado por 02_indexar_chroma.py)
+chroma_db/
+
+# Arquivos temporários gerados pelos scripts
+embeddings_2d.png
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo

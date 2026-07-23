@@ -2,8 +2,8 @@
 05_visualizar_embeddings.py — mapa 2D do corpus.
 
 Projeta os embeddings dos chunks em 2D com PCA e salva uma figura. Serve para
-os alunos VEREM que chunks sobre o mesmo assunto ficam proximos no espaco
-vetorial, que e o que a busca por similaridade explora.
+ observar que chunks sobre o mesmo assunto ficam proximos no espaco
+vetorial, caracter[istica que a busca por similaridade explora.
 
 Usa sentence-transformers LOCAL (sem chave), para rodar em qualquer maquina.
 """

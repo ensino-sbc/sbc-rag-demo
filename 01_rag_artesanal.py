@@ -17,7 +17,10 @@ aumentado e encerra, o que ja demonstra o conceito.
 import os
 import glob
 import numpy as np
+from dotenv import load_dotenv
 from sentence_transformers import SentenceTransformer
+
+load_dotenv()
 
 # ----------------------------------------------------------------------
 # Passo 1 — Ler o corpus e fatiar em chunks
@@ -79,7 +82,7 @@ def gerar_com_gemini(prompt):
     from google import genai
     cliente = genai.Client()
     resp = cliente.models.generate_content(
-        model="gemini-2.5-flash", contents=prompt
+        model="gemini-3.5-flash-lite", contents=prompt
     )
     return resp.text
 
